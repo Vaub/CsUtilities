@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Utilities.Colors
 {
-    public struct HexColor
+    public struct ArgbColor
     {
         public byte Alpha { get; }
         public byte Red { get; }
         public byte Green { get; }
         public byte Blue { get; }
 
-        public HexColor(byte red, byte green, byte blue, byte alpha = 255)
+        public ArgbColor(byte red, byte green, byte blue, byte alpha = 255)
         {
             Alpha = alpha;
             Red = red;
@@ -23,12 +23,12 @@ namespace Utilities.Colors
 
         public override bool Equals(object obj)
         {
-            if (!(obj is HexColor))
+            if (!(obj is ArgbColor))
             {
                 return false;
             }
 
-            var color = (HexColor)obj;
+            var color = (ArgbColor)obj;
             return Alpha == color.Alpha && Red == color.Red && Green == color.Green && Blue == color.Blue;
         }
 
@@ -43,7 +43,13 @@ namespace Utilities.Colors
             return hash;
         }
 
-        public static HexColor FromString(string hexString)
+
+        /// <summary>
+        /// Parse an aRGB color from a string
+        /// </summary>
+        /// <exception cref="FormatException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static ArgbColor FromString(string hexString)
         {
             hexString = hexString.TrimStart('#');
             if (hexString.Length != 6 && hexString.Length != 8)
@@ -59,14 +65,14 @@ namespace Utilities.Colors
             int green = (color >> 8) & 0xFF;
             int blue = (color >> 0) & 0xFF;
 
-            return new HexColor((byte)red, (byte)green, (byte)blue, (byte)alpha);
+            return new ArgbColor((byte)red, (byte)green, (byte)blue, (byte)alpha);
         }
     }
 
     public static class HexColors
     {
-        public static HexColor Red = new HexColor(255, 0, 0);
-        public static HexColor Green = new HexColor(0, 255, 0);
-        public static HexColor Blue = new HexColor(0, 0, 255);
+        public static ArgbColor Red = new ArgbColor(255, 0, 0);
+        public static ArgbColor Green = new ArgbColor(0, 255, 0);
+        public static ArgbColor Blue = new ArgbColor(0, 0, 255);
     }
 }

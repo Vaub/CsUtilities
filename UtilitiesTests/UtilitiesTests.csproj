@@ -53,7 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Colors\HexColorTests.cs" />
+    <Compile Include="Colors\ArgbColorTests.cs" />
     <Compile Include="Functional\FunctionalTests.cs" />
     <Compile Include="Option\OptionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

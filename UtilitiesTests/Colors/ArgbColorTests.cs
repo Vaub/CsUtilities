@@ -5,7 +5,7 @@ using Utilities.Colors;
 namespace UtilitiesTests.Colors
 {
     [TestClass]
-    public class HexColorTests
+    public class ArgbColorTests
     {
         private const string A_RED_COLOR = "#FF0000";
         private const string A_TRANSPARENT_COLOR = "#00FFFF00";

@@ -9,6 +9,8 @@ namespace UtilitiesTests.Functional
     [TestClass]
     public class FunctionalTests
     {
+        private const string A_VALUE = "Hello!";
+
         [TestMethod]
         public void ForEachTest()
         {
@@ -18,6 +20,13 @@ namespace UtilitiesTests.Functional
             strings.ForEach((string item) => numberOfStrings++);
 
             Assert.AreEqual(strings.Count(), numberOfStrings);
+        }
+
+        public void ToListTest()
+        {
+            var aValue = A_VALUE;
+            var aWrapedValue = aValue.WrapToList();
+            Assert.AreEqual(A_VALUE, aWrapedValue.First());
         }
     }
 }

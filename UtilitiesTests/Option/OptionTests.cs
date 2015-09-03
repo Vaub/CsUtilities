@@ -37,6 +37,30 @@ namespace UtilitiesTests.Option
             Assert.IsTrue(shouldNotChange);
         }
 
+        [TestMethod]
+        public void MapTest()
+        {
+            Func<int?, string> uselessMappingFunc = (value) => value.ToString();
+
+            var notNullMappedValue = NotNullObject.Map(uselessMappingFunc);
+            var nullMappedValue = NullObject.Map(uselessMappingFunc);
+
+            Assert.AreEqual("3", notNullMappedValue);
+            Assert.IsFalse(nullMappedValue.IsPresent());
+        }
+
+        [TestMethod]
+        public void FilterTest()
+        {
+            Func<int?, bool> uselessFilterFunc = (value) => value > 0;
+
+            var isFiltered = NotNullObject.Filter(uselessFilterFunc);
+            var isStillNull = NullObject.Filter(uselessFilterFunc);
+
+            Assert.AreEqual(NotNullObject, isFiltered);
+            Assert.IsFalse(isStillNull.IsPresent());
+        }
+
         [TestMethod, ExpectedException(typeof(ValueNotPresentException))]
         public void GetTest()
         {

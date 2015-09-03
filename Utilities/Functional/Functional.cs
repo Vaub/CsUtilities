@@ -15,5 +15,14 @@ namespace Utilities.Functional
                 func(item);
             }
         }
+
+        /// <summary>
+        /// Wrap a value in a List to be used in an Enumerable
+        /// Please do a null-check before using
+        /// </summary>
+        public static List<T> WrapToList<T>(this T value)
+        {
+            return new List<T>() { value };
+        }
     }
 }

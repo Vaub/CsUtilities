@@ -28,6 +28,10 @@ namespace CsvParser
         public CsvFileReaderEnumerator(StreamReader reader, ObjectMapper<T> mapper, bool strictMode = false, char delimiter = DEFAULT_DELIMITER)
         {
             _reader = reader;
+            _mapper = mapper;
+
+            _isStrict = strictMode;
+            _delimiter = delimiter;
 
             if (MoveNext())
             {
@@ -49,20 +53,25 @@ namespace CsvParser
 
                 if (_mapper.Mappings.ContainsKey(header))
                 {
-                    var mapping = _mapper.Mappings[header];
-                    object parsedValue;
-
-                    try
-                    {
-                        parsedValue = mapping.DataConverter(value);
-                    }
-                    catch (Exception e) { throw new MappingConversionException($"Could not convert [{header}]: {value} from ( {",".JoinEnum(line)} )", e); }
-
-                    mapping.Field.SetValue(item, parsedValue);
+                    ExtractValue(item, header, value);
                 }
             }
 
             return item;
+        }
+
+        private void ExtractValue(T item, string header, string value)
+        {
+            var mapping = _mapper.Mappings[header];
+            object parsedValue;
+
+            try
+            {
+                parsedValue = mapping.DataConverter(value);
+            }
+            catch (Exception e) { throw new MappingConversionException($"Could not convert [{header}]: {value}", e); }
+
+            mapping.Field.SetValue(item, parsedValue);
         }
 
         object IEnumerator.Current { get { return Current; } }
@@ -74,8 +83,7 @@ namespace CsvParser
 
         public bool MoveNext()
         {
-            _currentLine = _reader.ReadLine();
-            return _currentLine.IsPresent();
+            return (_currentLine = _reader.ReadLine()).IsPresent();
         }
 
         public void Reset()

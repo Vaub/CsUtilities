@@ -15,7 +15,7 @@ namespace UtilitiesTests.Strings
         public void JoinTest()
         {
             IEnumerable<string> strings = new List<string>() { "Hello", "World" };
-            var joinedValue = ",".Join(strings);
+            var joinedValue = ",".JoinEnum(strings);
             Assert.AreEqual("Hello,World", joinedValue);
         }
 

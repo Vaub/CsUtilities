@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataMapping.cs" />
+    <Compile Include="MappingConversionException.cs" />
     <Compile Include="ObjectMapper.cs" />
     <Compile Include="IDataReader.cs" />
     <Compile Include="IDataWriter.cs" />

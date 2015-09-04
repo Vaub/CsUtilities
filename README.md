@@ -10,10 +10,8 @@ Maybe it's bad design, but it made code more readable
 
 ```csharp
 // Useless example, like all examples
-Console.Print(
-    AMethodThatMightReturnANullable()
-        .Map((obj) => $"You have the number {obj}.")
-        .OrElse("You have no number, try again later."));
+Console.Print(AMethodThatMightReturnANullable()
+    .Map((obj) => $"You have the number {obj}.") ?? ""You have no number :(");
 ```
 
 ## Functional
